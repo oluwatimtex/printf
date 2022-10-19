@@ -16,13 +16,13 @@ int _printf(const char *format, ...)
 	l = 0;
 	va_start(char_list,  format);
 
-	while(*(format + l) != '\0')
+	while (*(format + l) != '\0')
 	{
 		if (*(format + l) == '%')
 		{
 			if (*(format + l + 1) == 'c')
 			{
-				/* format[l] = */ _putchar(va_arg(char_list, char));
+				_putchar(va_arg(char_list, char));
 			}
 			else if (*(format + l + 1) == 's')
 			{
