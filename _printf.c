@@ -47,5 +47,5 @@ int _printf(const char *format, ...)
 			l++;
 		}
 	}
-	return (0);
+	return (l);
 }
