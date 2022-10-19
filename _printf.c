@@ -1,44 +1,51 @@
 #include "main.h"
-#include <stdlib.h>
 
 /**
- * _printf - prints anything
- * @format: list of argument types passed to the function
+ * _printf - prints the characters given to it but
+ * takes note of some format specifiers
+ * @format: This is the string that's going to be checked through
  *
- * Return: int
+ * Return: An integer. 0(success) -1(failure)
  */
+
 int _printf(const char *format, ...)
 {
-	int i, count = 0;
-	va_list valist;
+	va_list char_list;
+	int l;
 
-	va_start(valist, format);
+	l = 0;
+	va_start(char_list,  format);
 
-	for (i = 0; format[i] != '\0')
+	while(*(format + l) != '\0')
 	{
-		if (format[i] != '%')
+		if (*(format + l) == '%')
 		{
-			count += _putchar(format[i]);
-			i++;
-		}
-		else if (format[i] == '%' && format[i + 1] != ' ')
-		{
-			switch (format[i + 1])
+			if (*(format + l + 1) == 'c')
 			{
-				case 'c':
-				count += print_char(va_arg(valist, int));
-				break;
-				case 's':
-				count += print_strings(va_arg(valist, char *));
-				break;
-				case '%':
-				count += _putchar('%');
-				break;
+				/* format[l] = */ _putchar(va_arg(char_list, char));
 			}
-			i += 2;
+			else if (*(format + l + 1) == 's')
+			{
+				char *str;
+				int i;
+
+				i = 0;
+				str = va_arg(char_list, char*);
+				while (*(str + i) != '\0')
+				{
+					_putchar(*(str + i));
+					i++;
+				}
+			}
+			else if (*(format + l + 1) == '%')
+				_putchar('%');
+			l += 2;
+		}
+		else
+		{
+			_putchar(*(format + l));
+			l++;
 		}
 	}
-	va_end(valist);
-
-	return (count);
+	return (0);
 }
