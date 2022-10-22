@@ -29,7 +29,7 @@ static int (*check_for_specifiers(const char *format))(va_list)
  * takes note of some format specifiers
  * @format: This is the string that's going to be checked through
  *
- * Return: An integer. 0(success) -1(failure)
+ * Return: An integer -- the length of the string
  */
 
 int _printf(const char *format, ...)
@@ -60,6 +60,11 @@ int _printf(const char *format, ...)
 					_putchar(*(str + i));
 					i++;
 				}
+			}
+			else if (*(format + l + 1) == 'd'
+					|| *(format + l + 1) == 'i')
+			{
+				_putchar('0' + va_args(char_list, int));
 			}
 			else if (*(format + l + 1) == '%')
 				_putchar('%');
